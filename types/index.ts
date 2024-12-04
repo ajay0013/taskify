@@ -28,3 +28,9 @@ declare module "next-auth" {
     user: User;
   }
 }
+
+export type SidebarProps = {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+  closeSidebar: () => void;
+};
