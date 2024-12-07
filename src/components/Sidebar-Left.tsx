@@ -1,65 +1,180 @@
 "use client";
 
-import { FiMenu } from "react-icons/fi";
-import { FaHome, FaCog, FaUsers } from "react-icons/fa";
+import * as React from "react";
+import {
+  AudioWaveform,
+  Blocks,
+  Calendar,
+  Command,
+  MessageCircleQuestion,
+  LayoutDashboard,
+  Ticket,
+  MessageCircleMore,
+  ChartColumn,
+  Settings2,
+  Trash2,
+  Bookmark,
+  // LogOut,
+} from "lucide-react";
 
-import { SidebarProps } from "../../types";
+// import { NavFavorites } from "@components/nav-favorites";
+import NavBoards from "./nav-boards";
+import NavMain from "@components/nav-main";
+// import { NavSecondary } from "@components/nav-secondary";
+// import { NavWorkspaces } from "@components/nav-workspaces";
+import TeamSwitcher from "@components/team-switcher";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from "@components/ui/sidebar";
+import NavOptions from "./nav-options";
+import { NavUser } from "./nav-user";
 
-const Sidebar_Left: React.FC<SidebarProps> = ({
-  isOpen,
-  toggleSidebar,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  closeSidebar, // use jab jhud manually close karne ka feature lagana ho
-}) => {
-  return (
-    <div
-      className={`sidebar fixed top-0 left-0 h-full bg-zinc-800 text-white flex flex-col shadow-lg transition-all duration-300 ease-out ${
-        isOpen ? "w-64" : "w-16"
-      } z-50`}
-    >
-      {/* Toggle Button */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute top-4 right-4 bg-gray-700 p-2 rounded-md"
-      >
-        <FiMenu size={20} />
-      </button>
-
-      {/* Sidebar Items */}
-      <div className="mt-12 flex flex-col space-y-4">
-        <div className="flex items-center space-x-2 p-4 hover:bg-gray-700 cursor-pointer">
-          <FaHome size={20} />
-          <span
-            className={`overflow-hidden transition-all duration-300 ease-out ${
-              isOpen ? "w-auto opacity-100" : "w-0 opacity-0"
-            }`}
-          >
-            Home
-          </span>
-        </div>
-        <div className="flex items-center space-x-2 p-4 hover:bg-gray-700 cursor-pointer">
-          <FaUsers size={20} />
-          <span
-            className={`overflow-hidden transition-all duration-300 ease-out ${
-              isOpen ? "w-auto opacity-100" : "w-0 opacity-0"
-            }`}
-          >
-            Users
-          </span>
-        </div>
-        <div className="flex items-center space-x-2 p-4 hover:bg-gray-700 cursor-pointer">
-          <FaCog size={20} />
-          <span
-            className={`overflow-hidden transition-all duration-300 ease-out ${
-              isOpen ? "w-auto opacity-100" : "w-0 opacity-0"
-            }`}
-          >
-            Settings
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+// This is sample data.
+const data = {
+  user: {
+    name: "User",
+    email: "m@example.com",
+    avatar: "",
+  },
+  teams: [
+    {
+      name: "Acme Inc",
+      logo: Command,
+      plan: "Enterprise",
+    },
+    {
+      name: "Acme Corp.",
+      logo: AudioWaveform,
+      plan: "Startup",
+    },
+    {
+      name: "Evil Corp.",
+      logo: Command,
+      plan: "Free",
+    },
+  ],
+  navMain: [
+    {
+      title: "Dashboard",
+      url: "#",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Chat",
+      url: "#",
+      icon: MessageCircleMore,
+    },
+    {
+      title: "Tickets",
+      url: "#",
+      icon: Ticket,
+    },
+    {
+      title: "Analytics",
+      url: "#",
+      icon: ChartColumn,
+    },
+    {
+      title: "Bookmarks",
+      url: "#",
+      icon: Bookmark,
+    },
+  ],
+  navOptions: [
+    {
+      title: "Activity",
+      url: "#",
+      icon: Calendar,
+    },
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings2,
+    },
+    {
+      title: "Trash",
+      url: "#",
+      icon: Trash2,
+    },
+    {
+      title: "Report",
+      url: "#",
+      icon: MessageCircleQuestion,
+    },
+  ],
+  boards: [
+    {
+      name: "API's",
+      url: "#",
+      emoji: Blocks,
+    },
+    {
+      name: "Front",
+      url: "#",
+      emoji: Blocks,
+    },
+    {
+      name: "Security",
+      url: "#",
+      emoji: Blocks,
+    },
+    {
+      name: "Database",
+      url: "#",
+      emoji: Blocks,
+    },
+    {
+      name: "Payment",
+      url: "#",
+      emoji: Blocks,
+    },
+  ],
+  workspaces: [
+    {
+      name: "Personal Life Management",
+      emoji: "🏠",
+      pages: [
+        {
+          name: "Daily Journal & Reflection",
+          url: "#",
+          emoji: "📔",
+        },
+        {
+          name: "Health & Wellness Tracker",
+          url: "#",
+          emoji: "🍏",
+        },
+        {
+          name: "Personal Growth & Learning Goals",
+          url: "#",
+          emoji: "🌟",
+        },
+      ],
+    },
+  ],
 };
 
-export default Sidebar_Left;
+export default function Sidebar_Left({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar className="border-r-0" {...props}>
+      <SidebarHeader>
+        <TeamSwitcher teams={data.teams} />
+        <NavMain items={data.navMain} />
+      </SidebarHeader>
+      <SidebarContent>
+        <NavBoards boards={data.boards} />
+        <NavOptions items={data.navOptions} className="mt-auto" />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
+  );
+}

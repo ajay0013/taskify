@@ -1,50 +1,43 @@
-"use client";
-
-import { useState } from "react";
 import Sidebar_Left from "@components/Sidebar-Left";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@components/ui/breadcrumb";
+import { Separator } from "@components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@components/ui/sidebar";
 
-export default function Layout({
+export default function MainLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
-  const closeSidebar = () => setIsOpen(false);
-
-  const handleBackgroundClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    if (e.target instanceof HTMLElement && !e.target.closest(".sidebar")) {
-      closeSidebar();
-    }
-  };
-
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <div className="relative">
-      {/* Sidebar */}
-      <Sidebar_Left
-        isOpen={isOpen}
-        toggleSidebar={toggleSidebar}
-        closeSidebar={closeSidebar}
-      />
-
-      {/* Main Content */}
-      <div
-        className={`main-content transition duration-300 ease-out ${
-          isOpen ? "filter blur-sm" : ""
-        }`}
-      >
+    <SidebarProvider>
+      <Sidebar_Left />
+      <SidebarInset>
+        <header className="sticky top-0 flex h-14 shrink-0 items-center gap-2 bg-background">
+          <div className="flex flex-1 items-center gap-2 px-3">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="line-clamp-1">
+                    yaha pe dynamically value render karni h
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+        </header>
         {children}
-      </div>
-
-      {/* Background Click to Close */}
-      {isOpen && (
-        <div
-          onClick={handleBackgroundClick}
-          className="fixed inset-0 z-40"
-          style={{ backgroundColor: "transparent" }}
-        ></div>
-      )}
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
