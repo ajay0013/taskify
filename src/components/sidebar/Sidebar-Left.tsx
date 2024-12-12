@@ -9,31 +9,33 @@ import {
   MessageCircleQuestion,
   LayoutDashboard,
   Ticket,
-  MessageCircleMore,
+  Inbox,
   ChartColumn,
   Settings2,
   Trash2,
   Bookmark,
+  Briefcase,
   // LogOut,
 } from "lucide-react";
 
 // import { NavFavorites } from "@components/nav-favorites";
 import NavBoards from "./nav-boards";
-import NavMain from "@components/nav-main";
+import NavMain from "@components/sidebar/nav-main";
 // import { NavSecondary } from "@components/nav-secondary";
 // import { NavWorkspaces } from "@components/nav-workspaces";
-import TeamSwitcher from "@components/team-switcher";
+import TeamSwitcher from "@components/sidebar/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarTrigger,
+  useSidebar,
 } from "@components/ui/sidebar";
 import NavOptions from "./nav-options";
 import { NavUser } from "./nav-user";
 
-// This is sample data.
 const data = {
   user: {
     name: "User",
@@ -64,9 +66,14 @@ const data = {
       icon: LayoutDashboard,
     },
     {
-      title: "Chat",
+      title: "Inbox",
       url: "#",
-      icon: MessageCircleMore,
+      icon: Inbox,
+    },
+    {
+      title: "Projects",
+      url: "#",
+      icon: Briefcase,
     },
     {
       title: "Tickets",
@@ -161,10 +168,15 @@ const data = {
 export default function Sidebar_Left({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { state } = useSidebar();
   return (
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <div className=" flex justify-between">
+          {state == "expanded" && <TeamSwitcher teams={data.teams} />}
+          <SidebarTrigger />
+        </div>
+
         <NavMain items={data.navMain} />
       </SidebarHeader>
       <SidebarContent>
