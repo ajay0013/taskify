@@ -15,6 +15,7 @@ import {
   Trash2,
   Bookmark,
   Briefcase,
+  ClipboardPlus,
   // LogOut,
 } from "lucide-react";
 
@@ -74,6 +75,11 @@ const data = {
       title: "Projects",
       url: "#",
       icon: Briefcase,
+    },
+    {
+      title: "Create ticket",
+      url: "#",
+      icon: ClipboardPlus,
     },
     {
       title: "Tickets",

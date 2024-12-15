@@ -71,6 +71,9 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        "custom-shadow-4xl": "var(--color-shadow-4xl)",
+      },
     },
   },
   plugins: [animate],

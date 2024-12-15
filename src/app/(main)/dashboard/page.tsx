@@ -5,6 +5,7 @@ import Header from "@components/main/header/Header";
 import React from "react";
 import { Home } from "lucide-react";
 import IssueSummary from "@components/main/dashboard/issue-summary";
+import TaskWidget from "@components/main/dashboard/task-widget";
 
 const Dashboard = () => {
   const heading = {
@@ -24,6 +25,8 @@ const Dashboard = () => {
 
             <div className="relative flex flex-col lg:grid lg:grid-cols-2 gap-7">
               <IssueSummary />
+              <TaskWidget />
+              <TaskWidget />
             </div>
           </div>
         </div>
