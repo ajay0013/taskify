@@ -15,8 +15,6 @@ import {
   Trash2,
   Bookmark,
   Briefcase,
-  ClipboardPlus,
-  // LogOut,
 } from "lucide-react";
 
 // import { NavFavorites } from "@components/nav-favorites";
@@ -75,11 +73,6 @@ const data = {
       title: "Projects",
       url: "#",
       icon: Briefcase,
-    },
-    {
-      title: "Create ticket",
-      url: "#",
-      icon: ClipboardPlus,
     },
     {
       title: "Tickets",

@@ -6,6 +6,7 @@ import React from "react";
 import { Home } from "lucide-react";
 import IssueSummary from "@components/main/dashboard/issue-summary";
 import TaskWidget from "@components/main/dashboard/task-widget";
+import { CreateTicket } from "@components/main/tickets/create-ticket";
 
 const Dashboard = () => {
   const heading = {
@@ -15,6 +16,7 @@ const Dashboard = () => {
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#202020]">
       <Header heading={heading} />
+      <CreateTicket />
 
       <div className="h-full w-full overflow-hidden">
         <div className="relative h-full w-full overflow-x-hidden overflow-y-scroll">
